@@ -536,7 +536,7 @@ genrule(
     name = "filter_netty_dynamic_libs",
     srcs = ["netty_tcnative/netty-tcnative-boringssl-static-2.0.24.Final.jar"],
     outs = ["netty_tcnative/netty-tcnative-filtered.jar"],
-    cmd = "cp $< $@ && zip -qd $@ " + UNNECESSARY_DYNAMIC_LIBRARIES,
+    cmd = "cp $< $@ && ! (ls " + UNNECESSARY_DYNAMIC_LIBRARIES + " &> /dev/null) || zip -qd $@ " + UNNECESSARY_DYNAMIC_LIBRARIES,
 )
 
 java_import(
